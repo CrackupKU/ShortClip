@@ -25,6 +25,11 @@ class SignUpActivity : AppCompatActivity() {
         binding.submitBtn.setOnClickListener {
             signUpHandler()
         }
+
+        binding.goToLoginBtn.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
     }
 
     private fun setInProgress(inProgress: Boolean) {
