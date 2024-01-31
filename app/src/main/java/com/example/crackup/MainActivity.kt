@@ -1,4 +1,4 @@
-package com.example.shortclip
+package com.example.crackup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

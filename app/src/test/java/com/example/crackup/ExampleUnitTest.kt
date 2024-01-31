@@ -1,4 +1,4 @@
-package com.example.shortclip
+package com.example.crackup
 
 import org.junit.Test
 
