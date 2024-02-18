@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:visibility="gone"
+    tools:visibility="visible" >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/post_title_input"
+        android:layout_margin="10dp"
+        android:gravity="top"
+        android:layout_toStartOf="@id/post_thumbnail_view"
+        android:hint="Title"
+        android:padding="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:id="@+id/post_caption_input"
+        android:layout_margin="10dp"
+        android:gravity="top"
+        android:layout_toStartOf="@id/post_thumbnail_view"
+        android:layout_below="@id/post_title_input"
+        android:hint="Write your caption here"
+        android:padding="10dp"/>
+
+    <ImageView
+        android:id="@+id/post_thumbnail_view"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
+        android:layout_alignParentEnd="true"
+        tools:background="@color/black"
+        android:layout_margin="10dp"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="30dp"
+        android:visibility="gone"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel_post_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/submit_post_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Post"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

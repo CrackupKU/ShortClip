@@ -1,5 +1,6 @@
 package com.example.crackup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.crackup.adapter.VideoPagerAdapter
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.bottom_menu_add_video->{
                     UiUtil.showToast(this,"Add video")
                     // Go to add video page
+                    startActivity(Intent(this,VideoUploadActivity::class.java))
                 }
                 R.id.bottom_menu_profile->{
                     UiUtil.showToast(this,"Profile")
