@@ -18,6 +18,22 @@
           <timeTargetWasSelectedWithDropDown value="2024-01-31T12:21:00.887662200Z" />
         </State>
       </entry>
+      <entry key="PostVideoActivity">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Beam\.android\avd\Pixel_6_Pro_API_33.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-02-19T19:23:31.094059900Z" />
+        </State>
+      </entry>
       <entry key="SignUpActivity">
         <State />
       </entry>
@@ -37,7 +53,7 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-18T18:48:24.993054600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-02-19T19:24:03.680724100Z" />
         </State>
       </entry>
       <entry key="app">

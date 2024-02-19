@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="20dp"
-    android:visibility="gone"
     tools:visibility="visible" >
 
     <EditText
@@ -36,17 +35,6 @@
         tools:background="@color/black"
         android:layout_margin="10dp"/>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="30dp"
-        android:visibility="gone"
-        android:layout_weight="1" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -62,6 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancel" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/submit_post_btn"

@@ -7,17 +7,20 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.crackup.databinding.ActivityVideoUploadBinding
 import com.example.crackup.util.UiUtil
 
 class VideoUploadActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVideoUploadBinding
-    private var selectedVideoUri : Uri? = null
+    private var selectedVideoUri: Uri? = null
     private lateinit var videoLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +31,19 @@ class VideoUploadActivity : AppCompatActivity() {
         videoLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if(result.resultCode == RESULT_OK){
+            if (result.resultCode == RESULT_OK) {
                 selectedVideoUri = result.data?.data
-                UiUtil.showToast(this,"Got video "+selectedVideoUri.toString())
+                startActivity(
+                    Intent(this, PostVideoActivity::class.java)
+                        .putExtra("videoUri", selectedVideoUri?.toString())
+                )
+                selectedVideoUri?.toString()?.let { Log.i("VideoUploadActivity", it) }
             }
         }
 
-        binding.uploadView.createButton.setOnClickListener {
+        binding.uploadVideoView.createButton.setOnClickListener {
             checkPermissionAndOpenVideoPicker()
         }
-
     }
 
     private fun checkPermissionAndOpenVideoPicker() {
@@ -53,9 +59,8 @@ class VideoUploadActivity : AppCompatActivity() {
         }
     }
 
-
     private fun openVideoPicker() {
-        var intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
         intent.type = "video/*"
         videoLauncher.launch(intent)
     }
