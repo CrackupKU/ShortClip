@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.crackup.databinding.ActivityVideoUploadBinding
+import com.example.crackup.util.FuncUtil
 import com.example.crackup.util.UiUtil
 
 class VideoUploadActivity : AppCompatActivity() {
@@ -33,11 +34,14 @@ class VideoUploadActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 selectedVideoUri = result.data?.data
-                startActivity(
-                    Intent(this, PostVideoActivity::class.java)
-                        .putExtra("videoUri", selectedVideoUri?.toString())
-                )
-                selectedVideoUri?.toString()?.let { Log.i("VideoUploadActivity", it) }
+                if (selectedVideoUri != null && isVideoDurationValid(selectedVideoUri!!)) {
+                    startActivity(
+                        Intent(this, PostVideoActivity::class.java)
+                            .putExtra("videoUri", selectedVideoUri.toString())
+                    )
+                } else {
+                    UiUtil.showToast(this, "Video duration must be <= 1 minute")
+                }
             }
         }
 
@@ -63,5 +67,10 @@ class VideoUploadActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
         intent.type = "video/*"
         videoLauncher.launch(intent)
+    }
+
+    private fun isVideoDurationValid(videoUri: Uri): Boolean {
+        val videoDuration = FuncUtil.getVideoDuration(this, videoUri) ?: 0
+        return videoDuration <= 60000
     }
 }
