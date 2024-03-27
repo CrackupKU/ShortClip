@@ -7,13 +7,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.example.crackup.databinding.ActivityVideoUploadBinding
 import com.example.crackup.util.FuncUtil
 import com.example.crackup.util.UiUtil
@@ -28,6 +25,8 @@ class VideoUploadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FuncUtil.bindingNavBar(this, binding.bottomNavbar)
 
         videoLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
