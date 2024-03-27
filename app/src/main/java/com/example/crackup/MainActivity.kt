@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.example.crackup.adapter.VideoPagerAdapter
 import com.example.crackup.databinding.ActivityMainBinding
 import com.example.crackup.model.ShortVideo
-import com.example.crackup.util.FuncUtil
+import com.example.crackup.util.UiUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FuncUtil.bindingNavBar(this, binding.bottomNavbar)
+        UiUtil.bindingNavBar(this, binding.bottomNavbar)
         setupViewPager()
 
     }

@@ -26,7 +26,7 @@ class VideoUploadActivity : AppCompatActivity() {
         binding = ActivityVideoUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FuncUtil.bindingNavBar(this, binding.bottomNavbar)
+        UiUtil.bindingNavBar(this, binding.bottomNavbar)
 
         videoLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()

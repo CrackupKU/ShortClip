@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.crackup.databinding.ActivityMainBinding
 import com.example.crackup.databinding.ActivityProfileBinding
-import com.example.crackup.util.FuncUtil
+import com.example.crackup.util.UiUtil
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -14,6 +14,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FuncUtil.bindingNavBar(this, binding.bottomNavbar)
+        UiUtil.bindingNavBar(this, binding.bottomNavbar)
     }
 }
