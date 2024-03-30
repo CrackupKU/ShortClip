@@ -5,6 +5,7 @@ data class UserModel(
     var email : String ="",
     var username : String ="",
     var profilePic : String = "",
+    var uploadVideo : MutableList<String> = mutableListOf(),
     var followerList : MutableList<String> = mutableListOf(),
     var followingList : MutableList<String> = mutableListOf()
 )

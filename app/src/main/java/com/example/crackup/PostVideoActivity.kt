@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
+import com.example.crackup.api.API
 import com.example.crackup.databinding.ActivityPostVideoBinding
+import com.example.crackup.model.request.UploadRequest
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
 class PostVideoActivity : AppCompatActivity() {
@@ -63,8 +66,16 @@ class PostVideoActivity : AppCompatActivity() {
             videoRef.putFile(this)
                 .addOnSuccessListener {
                     videoRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        // TODO: send URL to backend
-                        Log.i("PostVideoActivity", downloadUrl.toString())
+                        val request =
+                            UploadRequest(
+                                title = binding.postTitleInput.text.toString(),
+                                caption = binding.postCaptionInput.text.toString(),
+                                videoUrl = downloadUrl.toString(),
+                                isAds = false, // TODO: Need real isAds
+                                uploadBy = FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                            )
+
+                        API.uploadVideo(request)
                         setPostInProgress(false)
                         finish()
                     }

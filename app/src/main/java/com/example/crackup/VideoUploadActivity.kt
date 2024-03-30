@@ -39,7 +39,7 @@ class VideoUploadActivity : AppCompatActivity() {
                             .putExtra("videoUri", selectedVideoUri.toString())
                     )
                 } else {
-                    UiUtil.showToast(this, "Video duration must be <= 1 minute")
+                    UiUtil.showToast(this, "Video duration must be shorter than 1 minute")
                 }
             }
         }
@@ -50,12 +50,17 @@ class VideoUploadActivity : AppCompatActivity() {
     }
 
     private fun checkPermissionAndOpenVideoPicker() {
-        val readExternalVideo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {  // or Build.VERSION_CODES.R
-            android.Manifest.permission.READ_MEDIA_VIDEO
-        } else {
-            android.Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-        if (ContextCompat.checkSelfPermission(this, readExternalVideo) == PackageManager.PERMISSION_GRANTED) {
+        val readExternalVideo =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {  // or Build.VERSION_CODES.R
+                android.Manifest.permission.READ_MEDIA_VIDEO
+            } else {
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                readExternalVideo
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             openVideoPicker()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(readExternalVideo), 100)
