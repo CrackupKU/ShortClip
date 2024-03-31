@@ -3,6 +3,7 @@ package com.example.crackup.model.request
 import java.time.LocalDateTime
 
 data class UploadRequest(
+    var filename: String = "",
     var title: String = "",
     var caption: String = "",
     var videoUrl: String = "",

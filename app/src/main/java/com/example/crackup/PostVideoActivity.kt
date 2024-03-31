@@ -68,6 +68,7 @@ class PostVideoActivity : AppCompatActivity() {
                     videoRef.downloadUrl.addOnSuccessListener { downloadUrl ->
                         val request =
                             UploadRequest(
+                                filename = videoRef.name,
                                 title = binding.postTitleInput.text.toString(),
                                 caption = binding.postCaptionInput.text.toString(),
                                 videoUrl = downloadUrl.toString(),
