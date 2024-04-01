@@ -72,7 +72,7 @@ class PostVideoActivity : AppCompatActivity() {
                                 title = binding.postTitleInput.text.toString(),
                                 caption = binding.postCaptionInput.text.toString(),
                                 videoUrl = downloadUrl.toString(),
-                                isAds = false, // TODO: Need real isAds
+                                isAds = binding.toggleSwitch.isChecked,
                                 uploadBy = FirebaseAuth.getInstance().currentUser?.uid ?: "",
                             )
 
