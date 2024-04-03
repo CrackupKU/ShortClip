@@ -2,15 +2,23 @@ package com.example.crackup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.crackup.adapter.VideoPagerAdapter
+import com.example.crackup.api.API
+import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityMainBinding
 import com.example.crackup.model.ShortVideo
+import com.example.crackup.model.reponse.VideosResponse
 import com.example.crackup.util.UiUtil
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: VideoPagerAdapter
+    private val shortVideos = ArrayList<ShortVideo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,22 +27,33 @@ class MainActivity : AppCompatActivity() {
 
         UiUtil.bindingNavBar(this, binding.bottomNavbar)
         setupViewPager()
-
     }
 
     private fun setupViewPager() {
-        val shortVideos = listOf(
-            ShortVideo(
-                "Video 1",
-                "https://drive.google.com/uc?export=download&id=1pjtg7rNYITvkwhhcjAkWMjDZsV8iZSo0"
-            ),
-            ShortVideo(
-                "Video 2",
-                "https://drive.google.com/uc?export=download&id=1X6yCOPkO2d8NLIVI66wbcRYOtrgB-gBU"
-            ),
-            // Add more short videos as needed
-        )
-        adapter = VideoPagerAdapter(shortVideos)
-        binding.viewPager.adapter = adapter
+        val call: Call<List<VideosResponse>> = RetrofitClient.apiService.getVideos()
+        call.enqueue(object : Callback<List<VideosResponse>> {
+            override fun onResponse(
+                call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val videos: List<VideosResponse>? = response.body()
+                    videos?.forEach { video ->
+                        shortVideos.add(ShortVideo(
+                            title = video.title,
+                            videoUrl = video.videoUrl
+                        ))
+                    }
+                    adapter = VideoPagerAdapter(shortVideos)
+                    binding.viewPager.adapter = adapter
+                } else {
+                    Log.i("MainActivity", "Failed to fetch videos: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
+                Log.i("MainActivity", "Network error: ${t.message}")
+            }
+        })
+
     }
 }

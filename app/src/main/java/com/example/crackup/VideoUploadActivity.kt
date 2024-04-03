@@ -39,7 +39,7 @@ class VideoUploadActivity : AppCompatActivity() {
                             .putExtra("videoUri", selectedVideoUri.toString())
                     )
                 } else {
-                    UiUtil.showToast(this, "Video duration must be shorter than 1 minute")
+                    UiUtil.showToast(this, "Video duration must be no longer than 1 minute")
                 }
             }
         }
