@@ -1,6 +1,7 @@
 package com.example.crackup.api
 
-import com.example.crackup.model.request.UploadRequest
+import com.example.crackup.model.reponse.*
+import com.example.crackup.model.request.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -11,16 +12,8 @@ interface ApiService {
     fun healthCheck(): Call<HealthResponse>
 
     @GET("/videos")
-    fun getVideos(): Call<List<VideoUpload>>
+    fun getVideos(): Call<List<VideosResponse>>
 
     @POST("/upload")
     fun uploadVideo(@Body request: UploadRequest): Call<Unit>
 }
-
-data class HealthResponse(val message: String)
-
-data class VideoUpload(
-    val title: String,
-    val videoUrl: String,
-    val isAds: Boolean
-)

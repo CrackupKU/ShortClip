@@ -1,6 +1,7 @@
 package com.example.crackup.api
 
-import com.example.crackup.model.request.UploadRequest
+import com.example.crackup.model.reponse.*
+import com.example.crackup.model.request.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,22 +29,22 @@ object API {
     }
 
     fun getVideos() {
-        val call: Call<List<VideoUpload>> = RetrofitClient.apiService.getVideos()
-        call.enqueue(object : Callback<List<VideoUpload>> {
+        val call: Call<List<VideosResponse>> = RetrofitClient.apiService.getVideos()
+        call.enqueue(object : Callback<List<VideosResponse>> {
             override fun onResponse(
-                call: Call<List<VideoUpload>>, response: Response<List<VideoUpload>>
+                call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val videos: List<VideoUpload>? = response.body()
+                    val videos: List<VideosResponse>? = response.body()
                     videos?.forEach { video ->
-                        println("Title: ${video.title}, Video URL: ${video.videoUrl}, Is Ads: ${video.isAds}")
+                        println(video)
                     }
                 } else {
                     println("Failed to fetch videos: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<VideoUpload>>, t: Throwable) {
+            override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
                 println("Network error: ${t.message}")
             }
         })
