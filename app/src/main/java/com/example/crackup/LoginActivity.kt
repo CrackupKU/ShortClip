@@ -17,10 +17,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        FirebaseAuth.getInstance().currentUser?.let {
-//            startActivity(Intent(this,MainActivity::class.java))
-//            finish()
-//        }
+        FirebaseAuth.getInstance().currentUser?.let {
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
 
         binding.submitBtn.setOnClickListener {
             loginHandler()
