@@ -35,6 +35,8 @@ class ProfileActivity : AppCompatActivity() {
                 logout()
             }
         }
+
+        getProfileDataFromFirebase()
     }
 
     private fun logout() {
@@ -70,11 +72,13 @@ class ProfileActivity : AppCompatActivity() {
         profileUserModel.apply {
             Glide.with(binding.profilePic).load(profilePic)
                 .apply(RequestOptions().placeholder(R.drawable.icon_profile_circle))
+                .circleCrop()
                 .into(binding.profilePic)
             binding.profileUsername.text = "@" + username
             binding.progressBar.visibility = View.INVISIBLE
             binding.followingCount.text = followingList.size.toString()
             binding.followerCount.text = followerList.size.toString()
+            binding.postCount.text = uploadVideo.size.toString()
             // TODO: Fetch video by user HERE
         }
     }
