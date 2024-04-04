@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.crackup.databinding.VideoPlayerBinding
 import com.example.crackup.model.ShortVideo
 
-class VideoPagerAdapter (private val shortVideos: List<ShortVideo>) :
+class VideoPagerAdapter(private val shortVideos: List<ShortVideo>) :
     RecyclerView.Adapter<VideoPagerAdapter.VideoViewHolder>() {
 
-    inner class VideoViewHolder(private val binding : VideoPlayerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindVideo(shortVideo: ShortVideo){
+    inner class VideoViewHolder(private val binding: VideoPlayerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindVideo(shortVideo: ShortVideo) {
             binding.videoView.apply {
                 setVideoPath(shortVideo.videoUrl)
                 setOnPreparedListener {
@@ -20,10 +21,10 @@ class VideoPagerAdapter (private val shortVideos: List<ShortVideo>) :
                 }
                 //play pause
                 setOnClickListener {
-                    if(isPlaying){
+                    if (isPlaying) {
                         pause()
                         binding.pauseIcon.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         start()
                         binding.pauseIcon.visibility = View.GONE
                     }
@@ -33,7 +34,7 @@ class VideoPagerAdapter (private val shortVideos: List<ShortVideo>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        val binding = VideoPlayerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = VideoPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VideoViewHolder(binding)
     }
 

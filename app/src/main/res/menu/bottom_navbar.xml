@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Home"
+        android:id="@+id/bottom_menu_home"
         android:icon="@drawable/icon_home"
-        android:id="@+id/bottom_menu_home" />
+        android:title="Home" />
     <item
-        android:title="Add Video"
+        android:id="@+id/bottom_menu_add_video"
         android:icon="@drawable/icon_add"
-        android:id="@+id/bottom_menu_add_video" />
+        android:title="Add Video" />
 
-    <item android:title="Profile"
-        android:icon="@drawable/icon_profile"
+    <item
         android:id="@+id/bottom_menu_profile"
-        />
+        android:icon="@drawable/icon_profile"
+        android:title="Profile" />
 </menu>

@@ -1,15 +1,8 @@
 package com.example.crackup.util
 
 import android.content.Context
-import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import com.example.crackup.MainActivity
-import com.example.crackup.ProfileActivity
-import com.example.crackup.R
-import com.example.crackup.VideoUploadActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 object FuncUtil {
 
