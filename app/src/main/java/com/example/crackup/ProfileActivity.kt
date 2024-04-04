@@ -14,6 +14,5 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        UiUtil.bindingNavBar(this, binding.bottomNavbar)
     }
 }

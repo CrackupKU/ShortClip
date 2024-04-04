@@ -19,15 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackUp"
         tools:targetApi="31">
+
+        <!-- TODO: android:exported of other activity except main should be false -->
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" /> <!-- TODO: android:exported of other activity except main should be false -->
+            android:exported="false" />
         <activity
             android:name=".PostVideoActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".VideoUploadActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -39,10 +41,10 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -26,8 +27,6 @@ class VideoUploadActivity : AppCompatActivity() {
         binding = ActivityVideoUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        UiUtil.bindingNavBar(this, binding.bottomNavbar)
-
         videoLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -46,6 +45,9 @@ class VideoUploadActivity : AppCompatActivity() {
 
         binding.uploadVideoView.createButton.setOnClickListener {
             checkPermissionAndOpenVideoPicker()
+        }
+        binding.uploadVideoView.backButton.setOnClickListener {
+            finish()
         }
     }
 
