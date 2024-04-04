@@ -4,102 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
     <ImageView
+        android:id="@+id/profile_pic"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/icon_profile_circle"
-        android:id="@+id/profile_pic"/>
+        android:src="@drawable/icon_profile_circle" />
 
     <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:id="@+id/progress_bar"/>
+        android:layout_height="16dp" />
 
     <TextView
+        android:id="@+id/profile_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/profile_username"
-        tools:text="username"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textSize="20sp"/>
+        tools:text="username" />
 
     <Button
+        android:id="@+id/profile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textSize="14sp"
-        tools:text="Logout"
-        android:id="@+id/profile_btn"/>
+        tools:text="Logout" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/following_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Following"/>
+                android:text="Following" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="28dp"
+            android:background="@android:color/lighter_gray" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/follower_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Follower"/>
+                android:text="Follower" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="28dp"
+            android:background="@android:color/lighter_gray" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/post_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_count"
                 android:text="0"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posts"/>
+                android:text="Posts" />
 
         </LinearLayout>
 
@@ -107,7 +126,7 @@
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
-        android:layout_height="2dp"/>
+        android:layout_height="2dp" />
 
 
 </LinearLayout>
