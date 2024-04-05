@@ -1,5 +1,6 @@
 package com.example.crackup.api
 
+import com.example.crackup.model.Status
 import com.example.crackup.model.UserModel
 import com.example.crackup.model.reponse.*
 import com.example.crackup.model.request.*
@@ -21,6 +22,9 @@ interface ApiService {
 
     @GET("/videos/user/{user_id}")
     fun getVideosByUser(@Path("user_id") userId: String): Call<List<VideosResponse>>
+
+    @GET("/videos/user/{user_id}/status/{status}")
+    fun getUserVideoByStatus(@Path("user_id") userId: String, @Path("status") status: Status): Call<List<VideosResponse>>
 
     @POST("/upload")
     fun uploadVideo(@Body request: UploadRequest): Call<Unit>

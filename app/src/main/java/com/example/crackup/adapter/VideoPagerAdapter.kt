@@ -34,7 +34,11 @@ class VideoPagerAdapter(private val shortVideos: List<ShortVideo>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        val binding = VideoPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = VideoPlayerBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return VideoViewHolder(binding)
     }
 
