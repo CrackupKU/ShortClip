@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.crackup.adapter.VideoPagerAdapter
-import com.example.crackup.api.API
 import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityMainBinding
 import com.example.crackup.model.ShortVideo
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: VideoPagerAdapter
-    private val shortVideos = ArrayList<ShortVideo>()
+    private val homeVideos = ArrayList<VideosResponse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +37,9 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val videos: List<VideosResponse>? = response.body()
                     videos?.forEach { video ->
-                        shortVideos.add(ShortVideo(
-                            title = video.title,
-                            videoUrl = video.videoUrl
-                        ))
+                        homeVideos.add(video)
                     }
-                    adapter = VideoPagerAdapter(shortVideos)
+                    adapter = VideoPagerAdapter(homeVideos)
                     binding.viewPager.adapter = adapter
                 } else {
                     Log.i("MainActivity", "Failed to fetch videos: ${response.code()}")

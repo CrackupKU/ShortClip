@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crackup.databinding.VideoPlayerBinding
-import com.example.crackup.model.ShortVideo
+import com.example.crackup.model.reponse.VideosResponse
 
-class VideoPagerAdapter(private val shortVideos: List<ShortVideo>) :
+class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
     RecyclerView.Adapter<VideoPagerAdapter.VideoViewHolder>() {
 
     inner class VideoViewHolder(private val binding: VideoPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindVideo(shortVideo: ShortVideo) {
+        fun bindVideo(shortVideo: VideosResponse) {
             binding.videoView.apply {
                 setVideoPath(shortVideo.videoUrl)
                 setOnPreparedListener {
