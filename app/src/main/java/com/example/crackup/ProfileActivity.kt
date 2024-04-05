@@ -104,6 +104,7 @@ class ProfileActivity : AppCompatActivity() {
                     }
                     adapter = ProfileVideoAdapter(profileUserVideos)
                     binding.postCount.text = profileUserVideos.size.toString()
+                    binding.progressBarVideo.visibility = View.GONE
                     binding.recyclerView.layoutManager = GridLayoutManager(this@ProfileActivity, 3)
                     binding.recyclerView.adapter = adapter
                 } else {

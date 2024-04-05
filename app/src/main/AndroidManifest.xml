@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackUp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ProfileVideoPlayerActivity"
+            android:exported="false" />
         <!-- TODO: android:exported of other activity except main should be false -->
         <activity
             android:name=".ProfileActivity"

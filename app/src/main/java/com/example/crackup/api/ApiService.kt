@@ -20,6 +20,9 @@ interface ApiService {
     @GET("/videos")
     fun getVideos(): Call<List<VideosResponse>>
 
+    @GET("/videos/{video_id}")
+    fun getVideo(@Path("video_id") videoId: String): Call<VideosResponse>
+
     @GET("/videos/user/{user_id}")
     fun getVideosByUser(@Path("user_id") userId: String): Call<List<VideosResponse>>
 
