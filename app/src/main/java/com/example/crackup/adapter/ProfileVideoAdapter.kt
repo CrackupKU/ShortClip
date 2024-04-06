@@ -9,7 +9,7 @@ import com.example.crackup.ProfileVideoPlayerActivity
 import com.example.crackup.databinding.ProfileVideoItemRowBinding
 import com.example.crackup.model.reponse.VideosResponse
 
-class ProfileVideoAdapter(private val videos: List<VideosResponse>) :
+class ProfileVideoAdapter(private val shortVideos: List<VideosResponse>) :
     RecyclerView.Adapter<ProfileVideoAdapter.VideoViewHolder>() {
 
     inner class VideoViewHolder(private val binding: ProfileVideoItemRowBinding) :
@@ -17,8 +17,11 @@ class ProfileVideoAdapter(private val videos: List<VideosResponse>) :
         fun bindVideo(video: VideosResponse) {
             Glide.with(binding.thumbnailImageView).load(video.videoUrl)
                 .into(binding.thumbnailImageView)
-            binding.thumbnailImageView.setOnClickListener{
-                val intent = Intent(binding.thumbnailImageView.context, ProfileVideoPlayerActivity::class.java)
+            binding.thumbnailImageView.setOnClickListener {
+                val intent = Intent(
+                    binding.thumbnailImageView.context,
+                    ProfileVideoPlayerActivity::class.java
+                )
                 intent.putExtra("videoId", video.id)
                 binding.thumbnailImageView.context.startActivity(intent)
             }
@@ -35,11 +38,11 @@ class ProfileVideoAdapter(private val videos: List<VideosResponse>) :
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val video = videos[position]
+        val video = shortVideos[position]
         holder.bindVideo(video)
     }
 
     override fun getItemCount(): Int {
-        return videos.size
+        return shortVideos.size
     }
 }

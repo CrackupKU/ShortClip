@@ -9,12 +9,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.crackup.adapter.ProfileVideoAdapter
-import com.example.crackup.adapter.VideoPagerAdapter
 import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityProfileBinding
 import com.example.crackup.model.Status
 import com.example.crackup.model.UserModel
-import com.example.crackup.model.VideoModel
 import com.example.crackup.model.reponse.VideosResponse
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call

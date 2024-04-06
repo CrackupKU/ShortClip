@@ -10,4 +10,35 @@
         android:id="@+id/upload_video_view"
         layout="@layout/upload_video_view" />
 
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/upload_video_view" />
+
+    <TextView
+        android:id="@+id/video_processing_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Processing Videos"
+        android:layout_below="@+id/divider"
+        android:textSize="20sp"
+        android:layout_margin="12dp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_video"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@+id/video_processing_text"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/processing_video_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/video_processing_text" />
+
 </RelativeLayout>
