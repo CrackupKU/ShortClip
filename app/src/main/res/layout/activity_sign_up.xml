@@ -13,7 +13,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/tiktok_logo" />
+        android:src="@drawable/abstract_video_icon" />
 
     <TextView
         android:layout_width="match_parent"
