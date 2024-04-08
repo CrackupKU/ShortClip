@@ -41,6 +41,9 @@ class ProfileActivity : AppCompatActivity() {
                 logout()
             }
         }
+        binding.backButton.setOnClickListener {
+            finish()
+        }
 
         getProfileDataFromFirebase()
     }
