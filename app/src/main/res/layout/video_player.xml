@@ -39,6 +39,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/advertisement_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advertisement"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:background="@drawable/advertisement_badge_background"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/username_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

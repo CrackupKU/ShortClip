@@ -7,5 +7,7 @@
 
     <color name="red_pink">#FF2A4A</color>
     <color name="red_pink_light">#FFA5B2</color>
+    <color name="rich_gold_dark">#DAA520</color>
+    <color name="rich_gold_light">#F3D741</color>
 
 </resources>

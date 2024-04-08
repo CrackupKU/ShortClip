@@ -38,6 +38,7 @@ class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
                     }
                 }
 
+            binding.advertisementTextView.visibility = if (shortVideo.isAds) View.VISIBLE else View.GONE
             binding.titleView.text = shortVideo.title
             binding.progressBar.visibility = View.VISIBLE
             val caption = shortVideo.caption
