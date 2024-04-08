@@ -8,12 +8,29 @@
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
-    <ImageView
-        android:id="@+id/profile_pic"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/icon_profile_circle" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/icon_back" />
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_profile_circle" />
+
+    </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -131,9 +148,9 @@
 
     <ProgressBar
         android:id="@+id/progress_bar_video"
-        android:layout_margin="32dp"
         android:layout_width="24dp"
-        android:layout_height="24dp" />
+        android:layout_height="24dp"
+        android:layout_margin="32dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

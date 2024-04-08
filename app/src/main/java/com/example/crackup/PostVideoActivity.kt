@@ -8,10 +8,14 @@ import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.crackup.api.API
+import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityPostVideoBinding
 import com.example.crackup.model.request.UploadRequest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PostVideoActivity : AppCompatActivity() {
 
@@ -30,7 +34,6 @@ class PostVideoActivity : AppCompatActivity() {
         }
 
         binding.cancelPostBtn.setOnClickListener {
-            startActivity(Intent(this, VideoUploadActivity::class.java))
             finish()
         }
     }
@@ -76,9 +79,27 @@ class PostVideoActivity : AppCompatActivity() {
                                 uploadBy = FirebaseAuth.getInstance().currentUser?.uid ?: "",
                             )
 
-                        API.uploadVideo(request)
-                        setPostInProgress(false)
-                        finish()
+                        val call = RetrofitClient.apiService.uploadVideo(request)
+                        call.enqueue(object : Callback<Unit> {
+                            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                                if (response.isSuccessful) {
+                                    setPostInProgress(false)
+                                    val resultIntent = Intent()
+                                    resultIntent.putExtra("videoPosted", true)
+                                    setResult(RESULT_OK, resultIntent)
+                                    finish()
+                                    Log.i("PostVideoActivity", "Upload successful")
+                                } else {
+                                    // Request failed, handle the error
+                                    Log.i("PostVideoActivity", "Upload failed: ${response.errorBody()?.string()}")
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                // Request failed due to network error or other issues
+                                Log.i("PostVideoActivity", "Network error: ${t.message}")
+                            }
+                        })
                     }
                 }
         }

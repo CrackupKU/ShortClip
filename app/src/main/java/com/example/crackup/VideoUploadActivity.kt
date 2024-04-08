@@ -66,6 +66,18 @@ class VideoUploadActivity : AppCompatActivity() {
         setUpRecyclerViewForDisplayProcessingVideos()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("VideoUploadActivity", "onRestart is called")
+        refreshVideoList()
+    }
+
+    private fun refreshVideoList() {
+        processingVideos.clear()
+        binding.progressBarVideo.visibility = View.VISIBLE
+        setUpRecyclerViewForDisplayProcessingVideos()
+    }
+
     private fun checkPermissionAndOpenVideoPicker() {
         val readExternalVideo =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {  // or Build.VERSION_CODES.R
@@ -113,12 +125,12 @@ class VideoUploadActivity : AppCompatActivity() {
                     binding.processingVideoList.layoutManager =
                         LinearLayoutManager(this@VideoUploadActivity)
                 } else {
-                    Log.i("MainActivity", "Failed to fetch videos: ${response.code()}")
+                    Log.i("VideoUploadActivity", "Failed to fetch videos: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
-                Log.i("MainActivity", "Network error: ${t.message}")
+                Log.i("VideoUploadActivity", "Network error: ${t.message}")
             }
         })
     }
