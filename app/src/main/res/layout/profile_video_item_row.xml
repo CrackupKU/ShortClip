@@ -4,11 +4,27 @@
     android:layout_height="200dp">
 
     <ImageView
+        android:id="@+id/thumbnail_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="1dp"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:id="@+id/thumbnail_image_view"/>
+        android:padding="1dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/advertisement_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/advertisement_badge_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="3dp"
+        android:text="ads"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

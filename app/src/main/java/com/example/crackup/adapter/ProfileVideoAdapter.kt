@@ -2,6 +2,7 @@ package com.example.crackup.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,9 @@ class ProfileVideoAdapter(private val shortVideos: List<VideosResponse>) :
         fun bindVideo(video: VideosResponse) {
             Glide.with(binding.thumbnailImageView).load(video.videoUrl)
                 .into(binding.thumbnailImageView)
+            if (video.isAds) {
+                binding.advertisementTextView.visibility = View.VISIBLE
+            }
             binding.thumbnailImageView.setOnClickListener {
                 val intent = Intent(
                     binding.thumbnailImageView.context,
