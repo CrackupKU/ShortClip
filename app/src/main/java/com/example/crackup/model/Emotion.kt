@@ -5,6 +5,6 @@ enum class Emotion {
     HAPPY,
     ANGRY,
     SAD,
-    NEUTRAL,
+    DISGUST,
     SURPRISE
 }

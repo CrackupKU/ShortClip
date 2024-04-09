@@ -6,8 +6,9 @@ import android.util.Log
 import com.example.crackup.adapter.VideoPagerAdapter
 import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityMainBinding
-import com.example.crackup.model.ShortVideo
+import com.example.crackup.model.EmotionWatchTimeEntry
 import com.example.crackup.model.reponse.VideosResponse
+import com.example.crackup.model.request.RecommendRequest
 import com.example.crackup.util.UiUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-        val call: Call<List<VideosResponse>> = RetrofitClient.apiService.getVideos()
+        val requestBody = RecommendRequest(
+            watchedTime = ArrayList<EmotionWatchTimeEntry>(),
+            boundVideoIds = ArrayList<String>()
+        )
+        val call: Call<List<VideosResponse>> =
+            RetrofitClient.apiService.getRecommendedVideos(requestBody)
         call.enqueue(object : Callback<List<VideosResponse>> {
             override fun onResponse(
                 call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                     videos?.forEach { video ->
                         homeVideos.add(video)
                     }
+                    Log.i("MainActivity", videos.toString())
                     adapter = VideoPagerAdapter(homeVideos)
                     binding.viewPager.adapter = adapter
                 } else {

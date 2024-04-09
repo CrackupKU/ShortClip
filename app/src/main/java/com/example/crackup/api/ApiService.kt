@@ -17,8 +17,14 @@ interface ApiService {
     @GET("/users/{user_id}")
     fun getUser(@Path("user_id") userId: String): Call<UserModel>
 
+    @POST("/recommend")
+    fun getRecommendedVideos(@Body request: RecommendRequest): Call<List<VideosResponse>>
+
     @GET("/videos")
     fun getVideos(): Call<List<VideosResponse>>
+
+    @GET("/videos/status/{status}")
+    fun getVideosByStatus(@Path("status") status: Status): Call<List<VideosResponse>>
 
     @GET("/videos/{video_id}")
     fun getVideo(@Path("video_id") videoId: String): Call<VideosResponse>
@@ -27,7 +33,10 @@ interface ApiService {
     fun getVideosByUser(@Path("user_id") userId: String): Call<List<VideosResponse>>
 
     @GET("/videos/user/{user_id}/status/{status}")
-    fun getUserVideoByStatus(@Path("user_id") userId: String, @Path("status") status: Status): Call<List<VideosResponse>>
+    fun getUserVideoByStatus(
+        @Path("user_id") userId: String,
+        @Path("status") status: Status
+    ): Call<List<VideosResponse>>
 
     @POST("/upload")
     fun uploadVideo(@Body request: UploadRequest): Call<Unit>

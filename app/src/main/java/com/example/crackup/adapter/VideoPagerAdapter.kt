@@ -1,5 +1,6 @@
 package com.example.crackup.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,17 +8,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.crackup.R
+import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.VideoPlayerBinding
+import com.example.crackup.model.Emotion
+import com.example.crackup.model.EmotionWatchTimeEntry
 import com.example.crackup.model.UserModel
 import com.example.crackup.model.reponse.VideosResponse
+import com.example.crackup.model.request.RecommendRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
+class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
     RecyclerView.Adapter<VideoPagerAdapter.VideoViewHolder>() {
 
-    private var isExpanded = false
     private val MAX_CAPTION_LENGTH = 35
+
+    private var isExpanded = false
+    val boundVideoIds = ArrayList<String>()
+    val userEmotionWatchTime: ArrayList<EmotionWatchTimeEntry> = arrayListOf(
+        EmotionWatchTimeEntry(Emotion.FEAR, 0),
+        EmotionWatchTimeEntry(Emotion.HAPPY, 0),
+        EmotionWatchTimeEntry(Emotion.ANGRY, 0),
+        EmotionWatchTimeEntry(Emotion.SAD, 0),
+        EmotionWatchTimeEntry(Emotion.DISGUST, 0),
+        EmotionWatchTimeEntry(Emotion.SURPRISE, 0),
+    )
 
     inner class VideoViewHolder(private val binding: VideoPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,7 +56,11 @@ class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
                     }
                 }
 
-            binding.advertisementTextView.visibility = if (shortVideo.isAds) View.VISIBLE else View.GONE
+            if (!boundVideoIds.contains(shortVideo.id)) {
+                boundVideoIds.add(shortVideo.id)
+            }
+            binding.advertisementTextView.visibility =
+                if (shortVideo.isAds) View.VISIBLE else View.GONE
             binding.titleView.text = shortVideo.title
             binding.progressBar.visibility = View.VISIBLE
             val caption = shortVideo.caption
@@ -71,7 +93,8 @@ class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
                 setOnClickListener {
                     if (caption.length > MAX_CAPTION_LENGTH) {
                         if (isExpanded) {
-                            val truncatedCaption = caption.substring(0, MAX_CAPTION_LENGTH).trim() + " ..."
+                            val truncatedCaption =
+                                caption.substring(0, MAX_CAPTION_LENGTH).trim() + " ..."
                             binding.captionView.text = truncatedCaption
 
                         } else {
@@ -99,6 +122,34 @@ class VideoPagerAdapter(private val shortVideos: List<VideosResponse>) :
 
         // Update item layout with the data
         holder.bindVideo(shortVideo)
+
+        if (shortVideo.isAds) {
+            val requestBody = RecommendRequest(
+                watchedTime = userEmotionWatchTime,
+                boundVideoIds = boundVideoIds
+            )
+            Log.i("VideoPagerAdapter", requestBody.toString())
+            val call: Call<List<VideosResponse>> =
+                RetrofitClient.apiService.getRecommendedVideos(requestBody)
+            call.enqueue(object : Callback<List<VideosResponse>> {
+                override fun onResponse(
+                    call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        val videos: List<VideosResponse>? = response.body()
+                        videos?.forEach { video ->
+                            shortVideos.add(video)
+                        }
+                    } else {
+                        Log.i("VideoPagerAdapter", "Failed to fetch videos: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
+                    Log.i("VideoPagerAdapter", "Network error: ${t.message}")
+                }
+            })
+        }
     }
 
     override fun getItemCount(): Int {
