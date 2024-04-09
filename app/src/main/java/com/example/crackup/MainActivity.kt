@@ -19,7 +19,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: VideoPagerAdapter
+    private var adapter: VideoPagerAdapter? = null
     private val homeVideos = ArrayList<VideosResponse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        UiUtil.bindingNavBar(this, binding.bottomNavbar)
         setupViewPager()
     }
 
@@ -49,12 +48,13 @@ class MainActivity : AppCompatActivity() {
                     }
                     Log.i("MainActivity", videos.toString())
                     adapter = VideoPagerAdapter(homeVideos)
+                    UiUtil.bindingNavBar(this@MainActivity, binding.bottomNavbar, adapter)
                     binding.viewPager.adapter = adapter
                     binding.viewPager.registerOnPageChangeCallback(
                         object : OnPageChangeCallback() {
                             override fun onPageSelected(position: Int) {
-                                adapter.timer?.cancel()
-                                adapter.timer = null
+                                adapter?.timer?.cancel()
+                                adapter?.timer = null
                             }
                         }
                     )
