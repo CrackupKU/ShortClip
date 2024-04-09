@@ -1,8 +1,9 @@
 package com.example.crackup
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.crackup.adapter.VideoPagerAdapter
 import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.ActivityMainBinding
@@ -13,6 +14,7 @@ import com.example.crackup.util.UiUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +50,14 @@ class MainActivity : AppCompatActivity() {
                     Log.i("MainActivity", videos.toString())
                     adapter = VideoPagerAdapter(homeVideos)
                     binding.viewPager.adapter = adapter
+                    binding.viewPager.registerOnPageChangeCallback(
+                        object : OnPageChangeCallback() {
+                            override fun onPageSelected(position: Int) {
+                                adapter.timer?.cancel()
+                                adapter.timer = null
+                            }
+                        }
+                    )
                 } else {
                     Log.i("MainActivity", "Failed to fetch videos: ${response.code()}")
                 }

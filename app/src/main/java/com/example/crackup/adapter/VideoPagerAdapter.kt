@@ -20,6 +20,8 @@ import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Timer
+import java.util.TimerTask
 
 class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
     RecyclerView.Adapter<VideoPagerAdapter.VideoViewHolder>() {
@@ -27,8 +29,9 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
     private val MAX_CAPTION_LENGTH = 35
 
     private var isExpanded = false
-    val boundVideoIds = ArrayList<String>()
-    val userEmotionWatchTime: ArrayList<EmotionWatchTimeEntry> = arrayListOf(
+    var timer: Timer? = null
+    private val boundVideoIds = ArrayList<String>()
+    private val userEmotionWatchTime: ArrayList<EmotionWatchTimeEntry> = arrayListOf(
         EmotionWatchTimeEntry(Emotion.FEAR, 0),
         EmotionWatchTimeEntry(Emotion.HAPPY, 0),
         EmotionWatchTimeEntry(Emotion.ANGRY, 0),
@@ -39,6 +42,7 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
 
     inner class VideoViewHolder(private val binding: VideoPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bindVideo(shortVideo: VideosResponse) {
             Firebase.firestore.collection("users")
                 .document(shortVideo.uploadBy)
@@ -73,19 +77,29 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
 
             binding.videoView.apply {
                 setVideoPath(shortVideo.videoUrl)
+                setOnCompletionListener {
+                    timer?.cancel()
+                    timer = null
+                }
                 setOnPreparedListener {
                     binding.progressBar.visibility = View.GONE
                     it.start()
                     it.isLooping = true
+                    timer = Timer()
+                    startTimer(timer, shortVideo)
                 }
                 //play pause
                 setOnClickListener {
                     if (isPlaying) {
                         pause()
                         binding.pauseIcon.visibility = View.VISIBLE
+                        timer?.cancel()
+                        timer = null
                     } else {
                         start()
                         binding.pauseIcon.visibility = View.GONE
+                        timer = Timer()
+                        startTimer(timer, shortVideo)
                     }
                 }
             }
@@ -104,6 +118,25 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
                     }
                 }
             }
+        }
+
+        private fun addWatchTime(emotion: Emotion) {
+            val entry = userEmotionWatchTime.find { it.emotion == emotion }
+            entry?.duration = entry?.duration!! + 1
+        }
+
+        private fun startTimer(inputTimer: Timer?, shortVideo: VideosResponse) {
+            inputTimer?.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    shortVideo.emotion?.let { it1 ->
+                        addWatchTime(it1)
+                        Log.i(
+                            "VideoPagerAdapter",
+                            "${userEmotionWatchTime.find { it.emotion == shortVideo.emotion }?.emotion}: ${userEmotionWatchTime.find { it.emotion == shortVideo.emotion }?.duration}"
+                        )
+                    }
+                }
+            }, 0, 1000) // ms
         }
     }
 
