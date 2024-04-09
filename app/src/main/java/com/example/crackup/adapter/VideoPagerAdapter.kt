@@ -66,7 +66,7 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
             }
             binding.advertisementTextView.visibility =
                 if (shortVideo.isAds) View.VISIBLE else View.GONE
-            binding.titleView.text = shortVideo.title
+            binding.titleView.text = "(${shortVideo.emotion}) ${shortVideo.title}"
             binding.progressBar.visibility = View.VISIBLE
             val caption = shortVideo.caption
             if (caption.length > MAX_CAPTION_LENGTH) {
