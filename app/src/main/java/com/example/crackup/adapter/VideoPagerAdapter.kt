@@ -60,8 +60,9 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
                     }
                 }
 
-            if (!boundVideoIds.contains(shortVideo.id)) {
+            if (!boundVideoIds.contains(shortVideo.id) && !shortVideo.isAds) {
                 boundVideoIds.add(shortVideo.id)
+                Log.i("VideoPagerAdapter", "boundVideoIds add ${shortVideo.id}")
             }
             binding.advertisementTextView.visibility =
                 if (shortVideo.isAds) View.VISIBLE else View.GONE
@@ -153,39 +154,44 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
         // Bind data to your item layout
         val shortVideo = shortVideos[position]
 
+        if (shortVideo.isAds) {
+            getMoreRecommends()
+        }
+
         // Update item layout with the data
         holder.bindVideo(shortVideo)
 
-        if (shortVideo.isAds) {
-            val requestBody = RecommendRequest(
-                watchedTime = userEmotionWatchTime,
-                boundVideoIds = boundVideoIds
-            )
-            Log.i("VideoPagerAdapter", requestBody.toString())
-            val call: Call<List<VideosResponse>> =
-                RetrofitClient.apiService.getRecommendedVideos(requestBody)
-            call.enqueue(object : Callback<List<VideosResponse>> {
-                override fun onResponse(
-                    call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
-                ) {
-                    if (response.isSuccessful) {
-                        val videos: List<VideosResponse>? = response.body()
-                        videos?.forEach { video ->
-                            shortVideos.add(video)
-                        }
-                    } else {
-                        Log.i("VideoPagerAdapter", "Failed to fetch videos: ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
-                    Log.i("VideoPagerAdapter", "Network error: ${t.message}")
-                }
-            })
-        }
     }
 
     override fun getItemCount(): Int {
         return shortVideos.size
+    }
+
+    private fun getMoreRecommends() {
+        val requestBody = RecommendRequest(
+            watchedTime = userEmotionWatchTime,
+            boundVideoIds = boundVideoIds
+        )
+        Log.i("getMore", requestBody.toString())
+        val call: Call<List<VideosResponse>> =
+            RetrofitClient.apiService.getRecommendedVideos(requestBody)
+        call.enqueue(object : Callback<List<VideosResponse>> {
+            override fun onResponse(
+                call: Call<List<VideosResponse>>, response: Response<List<VideosResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val videos: List<VideosResponse>? = response.body()
+                    videos?.forEach { video ->
+                        shortVideos.add(video)
+                    }
+                } else {
+                    Log.i("VideoPagerAdapter", "Failed to fetch videos: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<VideosResponse>>, t: Throwable) {
+                Log.i("VideoPagerAdapter", "Network error: ${t.message}")
+            }
+        })
     }
 }
