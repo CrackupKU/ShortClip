@@ -1,5 +1,6 @@
 package com.example.crackup.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.crackup.ProfileActivity
 import com.example.crackup.R
 import com.example.crackup.api.RetrofitClient
 import com.example.crackup.databinding.VideoPlayerBinding
@@ -57,6 +59,13 @@ class VideoPagerAdapter(private val shortVideos: ArrayList<VideosResponse>) :
                             )
                             .into(binding.profileIcon)
 
+                        binding.profileIcon.setOnClickListener {
+                            timer?.cancel()
+                            timer = null
+                            val intent = Intent(binding.profileIcon.context, ProfileActivity::class.java)
+                            intent.putExtra("profile_user_id", id )
+                            binding.profileIcon.context.startActivity(intent)
+                        }
                     }
                 }
 

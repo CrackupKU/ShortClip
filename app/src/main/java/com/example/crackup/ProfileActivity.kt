@@ -40,6 +40,8 @@ class ProfileActivity : AppCompatActivity() {
             binding.profileBtn.setOnClickListener {
                 logout()
             }
+        } else {
+            binding.profileBtn.visibility = View.GONE
         }
         binding.backButton.setOnClickListener {
             finish()
